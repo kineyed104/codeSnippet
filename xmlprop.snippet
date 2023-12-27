@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippet Format="1.0.0" xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <Header>
+    <Title>xmlprop</Title>
+    <Author>nspakr</Author>
+    <Shortcut>xmlprop</Shortcut>
+    <Description>xml로 serialize 가능한 nullable property를 작성 </Description>
+    <SnippetTypes>
+      <SnippetType>SurroundsWith</SnippetType>
+      <SnippetType>Expansion</SnippetType>
+    </SnippetTypes>
+  </Header>
+  <Snippet>
+    <Declarations>
+      <Literal>
+        <ID>type</ID>
+        <Default>int</Default>
+      </Literal>
+      <Literal>
+        <ID>propertyName</ID>
+        <Default>myproperty</Default>
+      </Literal>
+    </Declarations>
+    <Code Language="csharp">
+      <![CDATA[
+       [XmlIgnore]
+       public $type$? $propertyName$;
+       [XmlAttribute(AttributeName="$propertyName$")]
+       public string $propertyName$Str
+        {
+
+            get { return ($propertyName$.HasValue) ? $propertyName$.ToString() : null; }
+            set { $propertyName$ = !string.IsNullOrEmpty(value) ? $type$.Parse(value) : default($type$?); }
+
+        }
+      $end$]]>
+    </Code>
+  </Snippet>
+</CodeSnippet>
